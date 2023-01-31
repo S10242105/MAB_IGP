@@ -1,29 +1,29 @@
 from pathlib import Path
 import csv
 
-fp = Path.cwd()/"csv_reports"/"overheads-day-90.csv"            
-with fp.open(mode="r", encoding="UTF-8", newline="") as file:
-    reader = csv.reader(file)
-    next(reader)
-    
-    category = []
-    overhead = []
+def Overhead():
+    fp = Path.cwd()/"csv_reports"/"overheads-day-90.csv"
+    with fp.open(mode="r", encoding="UTF-8", newline="") as file:
+        reader = csv.reader(file)
+        next(reader)   
 
-    for row in reader:
-        category.append(row[0])
-        overhead.append(float(row[1]))
+        overhead = []   
+        for row in reader:
+            overhead.append(row)
 
-a = 0
-b = 1
-
-for i in overhead:
-    while b < 11:
-        if overhead[a] > overhead[b]:
-            b += 1
-            print(category[a])
-        elif overhead[a] < overhead[b]:
-            a=b
-            b += 1
-            print(category[a])
-            
-print(f'{category[a]} is the highest overheads in "Overheads.csv"')
+    category_base = ''
+    overhead_base = ''
+    for row in overhead:
+        category = row[0]
+        overhead =float(row[1])
+        if overhead_base == '':
+            overhead_base = overhead
+        else:
+            if overhead > overhead_base: 
+                overhead_base = overhead
+                category_base = category
+            elif overhead < overhead_base:
+                overhead_base = overhead_base    
+                category = category_base   
+    print(f'[HIGHEST OVERHEADS] {category}: {overhead_base}%')
+Overhead()
