@@ -5,7 +5,7 @@ def CashOnHand():
     """
     - Function to calculate the difference in Cash-On-Hand between one day to the next.
     """
-    fp = Path.cwd()/"project_group"/"csv_reports"/"cash-on-hand-usd.csv"    # Path to csv file
+    fp = Path.cwd()/"csv_reports"/"cash-on-hand-usd.csv"    # Path to csv file
     # Read data from csv
     with fp.open(mode="r", encoding="UTF-8", newline="") as file:
         reader = csv.reader(file)

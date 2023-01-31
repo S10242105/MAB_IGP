@@ -5,7 +5,7 @@ def FindMaxOverhead():
     """
     - Function to find the highest overhead category.
     """
-    fp = Path.cwd()/"project_group"/"csv_reports"/"overheads-day-90.csv"    # Path to csv input file
+    fp = Path.cwd()/"csv_reports"/"overheads-day-90.csv"    # Path to csv input file
     # Read data from csv
     with fp.open(mode="r", encoding="UTF-8", newline="") as file:
         reader = csv.reader(file)

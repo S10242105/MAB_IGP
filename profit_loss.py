@@ -5,7 +5,7 @@ def ProfitLoss():
     """
     - Function calculates the difference in Net Profit if the net profit on the current day is lower than the previous.
     """
-    fp = Path.cwd()/"project_group"/"csv_reports"/"profit-and-loss-usd.csv"     # Path to csv input file
+    fp = Path.cwd()/"csv_reports"/"profit-and-loss-usd.csv"     # Path to csv input file
     # Read data from csv
     with fp.open(mode="r", encoding="UTF-8", newline="") as file:
         reader = csv.reader(file)
