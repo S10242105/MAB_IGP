@@ -1,29 +1,31 @@
 from pathlib import Path
 import csv
 
-fp = Path.cwd()/"csv_reports"/"profit-and-loss-usd.csv"
-with fp.open(mode="r", encoding="UTF-8", newline="") as file:
-    reader = csv.reader(file)
-    next(reader)
+def ProfitLoss():
+    fp = Path.cwd()/"project_group"/"csv_reports"/"profit-and-loss-usd.csv"     
 
-    day = []
-    net_profit = []
+    with fp.open(mode="r", encoding="UTF-8", newline="") as file:
+        reader = csv.reader(file)
+        next(reader) 
+        profit_loss = []   
+        
+        for row in reader:
+            profit_loss.append(row)
 
-    for row in reader:
-        day.append(row[0])
-        net_profit.append(float(row[4]))
+    filepath = Path.cwd()/"summary_report.txt"  
+    with filepath.open(mode = "a", encoding = "UTF-8") as file:   
+        prevPL = ''   
+        profit_deficit = 0    
 
-a = 0
-b = 1
-
-for i in net_profit:
-    while b < 11:
-        if net_profit[a] > net_profit[b]:
-            difference = net_profit[a] - net_profit[b]
-            print(f"[NET PROFIT DEFICIT] DAY: {b}, AMOUNT: USD{difference}")
-            a += 1
-            b += 1
-        elif net_profit[a] < net_profit[b]:
-            print(f'[NET PROFIT SURPLUS] NET PROFIT ON DAY {day[b]} IS HIGHER THAN DAY {day[a]}')
-            a += 1
-            b += 1
+        for row in profit_loss:
+            day = float(row[0])    
+            net_profit = float(row[4])  
+            if prevPL == '':            
+                prevPL = net_profit    
+            else:                     
+                if net_profit < prevPL:    
+                    file.write(f'[NET PROFIT DEFICIT] DAY: {day}, AMOUNT: USD{prevPL-net_profit}\n')    
+                    profit_deficit += 1    
+                prevPL = net_profit
+        if profit_deficit == 0:     
+            file.write(f'[NET PROFIT SURPLUS] NET PROFIT ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY')  
